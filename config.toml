@@ -1,12 +1,12 @@
 # The base URL of the site; the only required configuration variable.
-base_url = "https://kita-zola.pages.dev"
+base_url = "https://sieciowiec.xyz"
 
 # The site title and description; used in feeds by default.
-title = "Kita"
-description = "Kita is a clean, elegant and simple blog theme for Zola."
+title = "sieciowiec"
+description = ""
 
 # The default site author.
-author = "st1020"
+author = "Pondo"
 
 # The default language; used in feeds.
 default_language = "en"
@@ -49,7 +49,7 @@ math = false
 # Enable mermaid support globally.
 mermaid = false
 # Enable comment support globally.
-comment = false
+comment = true
 # The URL of social image.
 social_image = "icons/github.svg"
 

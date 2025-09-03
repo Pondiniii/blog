@@ -1,2 +1,12 @@
 /node_modules
 /public
+/content/*
+
+# static whitelist
+/static/*
+!/static/
+!/static/main.css
+!/static/app.css
+!/static/apple-touch-icon.png
+!/static/favicon.ico
+!/static/icons/

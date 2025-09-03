@@ -36,19 +36,23 @@
   <meta property="og:site_name" content="{{ config.title }}" />
   <meta property="og:description" content="{{ description }}" />
   <meta property="og:url" content="{{ page.permalink }}" />
-  {% if page.extra.cover.image %}
-  <!---->
+{% if page.extra.cover.image %}
   {% set image = page.extra.cover.image %}
-  <!---->
-  {% elif config.extra.social_image %}
-  <!---->
+{% elif config.extra.social_image %}
   {% set image = config.extra.social_image %}
-  <!---->
+{% endif %}
+
+{% if image and image | length > 0 %}
+  {% set ext = image | split(pat=".") | last | lower %}
+  {% if ext == "svg" %}
+    <meta property="og:image" content="{{ get_url(path=image) }}">
+  {% else %}
+    {% set og_url = macros::og_image(page=page, src=image) %}
+    <meta property="og:image" content="{{ og_url | trim }}">
   {% endif %}
-  <!---->
-  {% if image %}
-  <meta property="og:image" content="{{ get_url(path=image) }}" />
-  {% endif %}
+{% endif %}
+
+
   <!---->
   {% else %}
   <!-- Author -->

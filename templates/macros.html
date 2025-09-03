@@ -7,3 +7,60 @@
 {{- "https://cdn.jsdelivr.net/npm/simple-icons/icons/" ~ icon ~ ".svg" -}}
 {%- endif -%}
 {%- endmacro get_social_icon -%}
+
+{% macro avif(page, src, alt="") %}
+  {% set fname = src | trim %}
+  {% set_global path = "" %}
+
+  {# najpierw spróbuj znaleźć w page.assets #}
+  {% for a in page.assets -%}
+    {% if a is ending_with("/" ~ fname) %}
+      {% set_global path = a %}{% break %}
+    {% endif %}
+  {%- endfor %}
+
+  {# jeśli nie znalazło w page.assets, sprawdź static #}
+  {% if not path %}
+    {% set path = fname %}
+  {% endif %}
+
+  {% if path %}
+    {% set out = resize_image(path=path, width=2000, height=2000, op="fit",
+                              format="avif", quality=80, speed=10) %}
+    <img src="{{ out.url }}"
+         alt="{{ alt | safe }}"
+         class="h-auto w-full rounded-lg"
+         loading="lazy"
+         decoding="async"
+         width="{{ out.width }}"
+         height="{{ out.height }}" />
+  {% endif %}
+{% endmacro %}
+
+{% macro og_image(page, src) %}
+  {% set fname = src | trim %}
+  {% set_global path = "" %}
+
+  {% for a in page.assets %}
+    {% if a is ending_with("/" ~ fname) %}
+      {% set_global path = a %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+
+  {% if not path %}
+    {% set path = fname %}
+  {% endif %}
+
+  {% if path %}
+    {% set out = resize_image(
+      path=path,
+      width=1200,
+      height=1200,
+      op="fit",
+      format="webp",
+      quality=66
+    ) %}
+    {{ out.url }}
+  {% endif %}
+{% endmacro %}

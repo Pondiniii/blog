@@ -1,0 +1,7 @@
+{% import "macros.html" as macros %}
+
+{{ macros::avif(
+     page=page,
+     src=src,
+     alt=alt | default(value="")
+) }}
